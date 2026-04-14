@@ -6,12 +6,18 @@ const chips = document.querySelectorAll(".chip");
 
 // Add message
 function addMessage(text, sender) {
-    const msg = document.createElement("div");
-    msg.classList.add("message", sender);
-    msg.innerText = text;
-    chatArea.appendChild(msg);
-    chatArea.scrollTop = chatArea.scrollHeight;
+    const chatBox = document.getElementById("chatBox");
+
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message", sender);
+
+    messageDiv.innerText = text;
+
+    chatBox.appendChild(messageDiv);
+
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
+
 
 // Thinking
 function showThinking() {
@@ -39,15 +45,13 @@ function hideEmptyState() {
 
 // 🚀 MAIN CHANGE: API CALL
 async function handleSend() {
-    const text = userInput.value.trim();
-    if (text === "") return;
+    const input = document.getElementById("userInput");
+    const text = input.value.trim();
 
-    hideEmptyState();
+    if (!text) return;
+
     addMessage(text, "user");
-    userInput.value = "";
-
-    setLoading(true);
-    showThinking();
+    input.value = "";
 
     try {
         const response = await fetch("https://chatbot-4hkf.onrender.com/chat", {
@@ -60,15 +64,11 @@ async function handleSend() {
 
         const data = await response.json();
 
-        removeThinking();
         addMessage(data.reply, "bot");
 
     } catch (error) {
-        removeThinking();
         addMessage("Error connecting to server.", "bot");
     }
-
-    setLoading(false);
 }
 
 // Events
