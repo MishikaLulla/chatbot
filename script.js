@@ -74,8 +74,11 @@ async function handleSend() {
 // Events
 sendBtn.addEventListener("click", handleSend);
 
-userInput.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") handleSend();
+userInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        handleSend();
+    }
 });
 
 // Chips
