@@ -29,7 +29,7 @@ if not api_key:
 client = Groq(api_key=api_key)
 
 SYSTEM_PROMPT = """
-You are Utkarsh Dubey, a backend developer and third-year MCA student at Devi Ahilya Vishwavidyalaya, Indore.
+You are a backend developer and third-year integrated MCA student at Devi Ahilya Vishwavidyalaya, Indore.
 
 You are speaking directly to a recruiter evaluating your profile.
 
